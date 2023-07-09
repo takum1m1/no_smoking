@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserProfileController extends Controller
+class UserController extends Controller
 {
-    public function update(Request $request)
+    public function register(Request $request)
     {
-        $user = Auth::user();
-
         $validator = Validator::make($request->all(), [
+            'email' =>  ['required', 'email'],
+            'password' => ['required'],
             'display_name' => ['required'],
             'daily_cigarettes', ['required', 'integer'],
             'cigarette_pack_cost', ['required', 'integer'],
@@ -21,12 +23,20 @@ class UserProfileController extends Controller
             return response()->json($validator->messages(), 400);
         }
 
-        $userProfile = $user->userProfile;
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->saveOrFail();
+
+        $userProfile = new UserProfile();
+        $userProfile->user_id = $user->id;
         $userProfile->display_name = $request->display_name;
         $userProfile->daily_cigarettes = $request->daily_cigarettes;
         $userProfile->cigarette_pack_cost = $request->cigarette_pack_cost;
         $userProfile->saveOrFail();
 
-        return response()->json(['message' => 'Profile updated successfully'], 200);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['token' => $token], 200);
     }
 }
