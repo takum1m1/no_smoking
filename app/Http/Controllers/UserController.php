@@ -16,8 +16,8 @@ class UserController extends Controller
             'email' =>  ['required', 'email'],
             'password' => ['required'],
             'display_name' => ['required'],
-            'daily_cigarettes', ['required', 'integer'],
-            'cigarette_pack_cost', ['required', 'integer'],
+            'daily_cigarettes' => ['required', 'integer'],
+            'cigarette_pack_cost' => ['required', 'integer'],
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);
