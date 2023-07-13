@@ -25,4 +25,5 @@ Route::post('/register', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::put('/profile/update', [UserProfileController::class, 'update']);
+    Route::get('/profile/{id}', [UserProfileController::class, 'show']);
 });
