@@ -51,6 +51,7 @@ class UserProfileController extends Controller
         $extendedLife = $quitCigarettes * 10;
 
         return response()->json([
+            'display_name' => $userProfile->display_name,
             'quitDays' => $quitDays,
             'quitCigarettes' => $quitCigarettes,
             'savedMoney' => $savedMoney,
