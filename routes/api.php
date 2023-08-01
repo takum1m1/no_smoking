@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Models\User;
@@ -26,4 +29,8 @@ Route::post('/register', [UserController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function() {
     Route::put('/profile/update', [UserProfileController::class, 'update']);
     Route::get('/profile/{id}', [UserProfileController::class, 'show']);
+    Route::post('/post', [PostController::class, 'post']);
+    Route::post('/posts/{postId}/comment', [CommentController::class, 'comment']);
+    Route::post('/posts/{postId}/like', [LikeController::class, 'like']);
+    Route::delete('/posts/{postId}/unlike', [LikeController::class, 'unlike']);
 });
