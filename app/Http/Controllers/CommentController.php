@@ -12,7 +12,7 @@ class CommentController extends Controller
     public function comment(Request $request, $postId)
     {
         $validator = Validator::make($request->all(), [
-            'content' => ['required'],
+            'content' => ['required', 'max:200'],
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);

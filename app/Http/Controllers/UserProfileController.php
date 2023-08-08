@@ -15,9 +15,9 @@ class UserProfileController extends Controller
         $user = Auth::user();
 
         $validator = Validator::make($request->all(), [
-            'display_name' => ['required'],
-            'daily_cigarettes' => ['required', 'integer'],
-            'cigarette_pack_cost' => ['required', 'integer'],
+            'display_name' => ['required', 'max:20'],
+            'daily_cigarettes' => ['required', 'integer', 'min:1'],
+            'cigarette_pack_cost' => ['required', 'integer', 'min:400', 'max:3000'],
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);

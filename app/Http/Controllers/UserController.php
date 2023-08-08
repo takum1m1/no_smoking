@@ -13,11 +13,11 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' =>  ['required', 'email'],
-            'password' => ['required'],
-            'display_name' => ['required'],
-            'daily_cigarettes' => ['required', 'integer'],
-            'cigarette_pack_cost' => ['required', 'integer'],
+            'email' =>  ['required', 'email', 'max:256', 'unique:users'],
+            'password' => ['required', 'min:6', 'max:128' ,'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/'],
+            'display_name' => ['required', 'max:20'],
+            'daily_cigarettes' => ['required', 'integer', 'min:1'],
+            'cigarette_pack_cost' => ['required', 'integer', 'min:400', 'max:3000'],
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);

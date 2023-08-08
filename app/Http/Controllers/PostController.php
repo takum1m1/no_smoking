@@ -17,7 +17,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'content' => ['required'],
+            'content' => ['required', 'max:200'],
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);

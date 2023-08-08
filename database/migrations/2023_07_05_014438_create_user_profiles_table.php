@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('display_name');
-            $table->integer('daily_cigarettes');
-            $table->integer('cigarette_pack_cost');
+            $table->string('display_name', 20);
+            $table->integer('daily_cigarettes')->unsigned();
+            $table->integer('cigarette_pack_cost')->unsigned();
             $table->timestamps();
         });
     }
