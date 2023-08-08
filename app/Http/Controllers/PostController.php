@@ -8,7 +8,13 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
-    public function post(Request $request)
+    public function index()
+    {
+        $posts = Post::with(['user', 'likes', 'comments'])->orderBy('created_at', 'desc')->paginate(10);;
+        return response()->json(['message' => 'Posts retrieved successfully', 'posts' => $posts], 200);
+    }
+
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'content' => ['required'],

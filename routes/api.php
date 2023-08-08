@@ -29,8 +29,9 @@ Route::post('/register', [UserController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function() {
     Route::put('/profile/update', [UserProfileController::class, 'update']);
     Route::get('/profile/{id}', [UserProfileController::class, 'show']);
-    Route::post('/post', [PostController::class, 'post']);
-    Route::post('/posts/{postId}/comment', [CommentController::class, 'comment']);
-    Route::post('/posts/{postId}/like', [LikeController::class, 'like']);
-    Route::delete('/posts/{postId}/unlike', [LikeController::class, 'unlike']);
+    Route::get('/posts', [PostController::class, 'index']);
+    Route::post('/posts', [PostController::class, 'store']);
+    Route::post('/posts/{postId}/comments', [CommentController::class, 'comment']);
+    Route::post('/posts/{postId}/likes', [LikeController::class, 'like']);
+    Route::delete('/posts/{postId}/likes', [LikeController::class, 'unlike']);
 });
