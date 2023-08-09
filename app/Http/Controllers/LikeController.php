@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
     public function like($postId)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $post = Post::findOrFail($postId);
 
@@ -28,7 +29,7 @@ class LikeController extends Controller
 
     public function unlike($postId)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $post = Post::findOrFail($postId);
 

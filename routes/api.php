@@ -31,7 +31,10 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/profile/{id}', [UserProfileController::class, 'show']);
     Route::get('/posts', [PostController::class, 'index']);
     Route::post('/posts', [PostController::class, 'store']);
+    Route::get('/posts/{id}', [PostController::class, 'show']);
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
     Route::post('/posts/{postId}/comments', [CommentController::class, 'comment']);
+    Route::delete('/posts/{postId}/comments/{commentId}', [CommentController::class, 'destroy']);
     Route::post('/posts/{postId}/likes', [LikeController::class, 'like']);
     Route::delete('/posts/{postId}/likes', [LikeController::class, 'unlike']);
 });

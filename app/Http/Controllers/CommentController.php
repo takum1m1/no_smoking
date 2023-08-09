@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
@@ -18,7 +19,7 @@ class CommentController extends Controller
             return response()->json($validator->messages(), 400);
         }
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         $post = Post::findOrFail($postId);
 
@@ -29,5 +30,19 @@ class CommentController extends Controller
         $comment->saveOrFail();
 
         return response()->json(['message' => 'Comment created successfully', 'comment' => $comment], 200);
+    }
+
+    public function destroy($postId, $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+
+        $userId = Auth::user()->id;
+
+        if ($comment->user_id !== $userId) {
+            return response()->json(['message' => 'Unauthorized: You can only delete your own comments.'], 403);
+        }
+
+        $comment->delete();
+        return response()->json(['message' => 'Comment deleted successfully'], 200);
     }
 }
