@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('display_name', 20);
             $table->integer('daily_cigarettes')->unsigned();
             $table->integer('cigarette_pack_cost')->unsigned();
+            $table->date('quit_date')->nullable();
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\CarbonImmutable;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class UserController extends Controller
         $userProfile->display_name = $request->display_name;
         $userProfile->daily_cigarettes = $request->daily_cigarettes;
         $userProfile->cigarette_pack_cost = $request->cigarette_pack_cost;
+        $userProfile->quit_date = CarbonImmutable::now();
         $userProfile->saveOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;

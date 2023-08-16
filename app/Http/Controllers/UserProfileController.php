@@ -36,18 +36,12 @@ class UserProfileController extends Controller
     {
         $userProfile = UserProfile::find($id);
 
-        // 禁煙日数の計算：禁煙開始日から現在までの日数
-        $quitDate = CarbonImmutable::parse($userProfile->created_at);
+        $quitDate = $userProfile->quit_date;
         $now = CarbonImmutable::now();
+
         $quitDays = $quitDate->diffInDays($now);
-
-        // 禁煙できた本数の計算：一日の喫煙本数 * 禁煙日数
         $quitCigarettes = $userProfile->daily_cigarettes * $quitDays;
-
-        // 節約できた金額の計算：一箱の値段 * 禁煙できた本数 / 1箱あたりの本数
         $savedMoney = $userProfile->cigarette_pack_cost * $quitCigarettes / 20;
-
-        // 伸びた寿命の計算：禁煙できた本数 * 10分（1本あたりの平均寿命損失）
         $extendedLife = $quitCigarettes * 10;
 
         return response()->json([

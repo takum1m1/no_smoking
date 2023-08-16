@@ -14,6 +14,11 @@ class UserProfile extends Model
         'display_name',
         'daily_cigarettes',
         'cigarette_pack_cost',
+        'quit_date',
+    ];
+
+    protected $casts = [
+        'quit_date' => 'date',
     ];
 
     public function user()
