@@ -27,8 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::put('/profile/update', [UserProfileController::class, 'update']);
+    Route::patch('/profile/update', [UserProfileController::class, 'update']);
     Route::get('/profile/{id}', [UserProfileController::class, 'show']);
+    Route::patch('/profile/reset', [UserProfileController::class, 'reset']);
     Route::get('/posts', [PostController::class, 'index']);
     Route::post('/posts', [PostController::class, 'store']);
     Route::get('/posts/{id}', [PostController::class, 'show']);

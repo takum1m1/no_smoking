@@ -34,7 +34,7 @@ class UserProfileController extends Controller
 
     public function show($id)
     {
-        $userProfile = UserProfile::find($id);
+        $userProfile = UserProfile::findOrFail($id);
 
         $quitDate = $userProfile->quit_date;
         $now = CarbonImmutable::now();
@@ -51,5 +51,15 @@ class UserProfileController extends Controller
             'savedMoney' => $savedMoney,
             'extendedLife' => $extendedLife,
         ],200);
+    }
+
+    public function reset()
+    {
+        $userProfile = UserProfile::findOrFail(Auth::user()->id);
+
+        $userProfile->quit_date = CarbonImmutable::now();
+        $userProfile->save();
+
+        return response()->json(['message' => 'Smoking data reset successfully.'], 200);
     }
 }
