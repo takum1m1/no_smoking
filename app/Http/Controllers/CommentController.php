@@ -32,7 +32,7 @@ class CommentController extends Controller
         return response()->json(['message' => 'Comment created successfully', 'comment' => $comment], 200);
     }
 
-    public function destroy($postId, $commentId)
+    public function destroy($commentId)
     {
         $comment = Comment::findOrFail($commentId);
 

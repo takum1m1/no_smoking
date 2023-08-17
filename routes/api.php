@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -35,9 +38,14 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/posts/{id}', [PostController::class, 'show']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
     Route::post('/posts/{postId}/comments', [CommentController::class, 'comment']);
-    Route::delete('/posts/{postId}/comments/{commentId}', [CommentController::class, 'destroy']);
+    Route::delete('/comments/{commentId}', [CommentController::class, 'destroy']);
     Route::post('/posts/{postId}/likes', [LikeController::class, 'like']);
     Route::delete('/posts/{postId}/likes', [LikeController::class, 'unlike']);
 });
 Route::middleware(['auth:sanctum', 'admin'])->group(function() {
+    Route::get('/admin/users', [AdminUserController::class, 'index']);
+    Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy']);
+    Route::get('/admin/posts', [AdminPostController::class, 'index']);
+    Route::delete('/admin/posts/{id}', [AdminPostController::class, 'destroy']);
+    Route::delete('/admin/comments/{commentId}', [AdminCommentController::class, 'destroy']);
 });
