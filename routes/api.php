@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::middleware(['auth:sanctum', 'admin'])->group(function() {
     // ユーザー一覧
     Route::get('/admin/users', [AdminUserController::class, 'index']);
-    // ユーザー削除
+    // ユーザーBAN
     Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy']);
     // 投稿一覧
     Route::get('/admin/posts', [AdminPostController::class, 'index']);
