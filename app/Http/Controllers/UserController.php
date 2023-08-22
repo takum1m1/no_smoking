@@ -41,4 +41,32 @@ class UserController extends Controller
 
         return response()->json(['token' => $token], 200);
     }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' =>  ['required', 'email', 'max:256'],
+            'password' => ['required', 'min:6', 'max:128' ,'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/'],
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 400);
+        }
+
+        $user = User::where('email', $request->email)->firstOrFail();
+
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Invalid credentials'], 400);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['token' => $token], 200);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'User logged out successfully'], 200);
+    }
 }

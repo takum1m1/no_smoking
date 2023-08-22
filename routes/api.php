@@ -25,11 +25,15 @@ use Illuminate\Support\Facades\Route;
 
 // ユーザー登録
 Route::post('/register', [UserController::class, 'register']);
+// ログイン
+Route::post('/login', [UserController::class, 'login']);
 
 /**********************************************
  * ログインユーザー用エンドポイント
  **********************************************/
 Route::middleware('auth:sanctum')->group(function() {
+    // ログアウト
+    Route::post('/logout', [UserController::class, 'logout']);
     // プロフィール更新
     Route::patch('/profile/update', [UserProfileController::class, 'update']);
     // プロフィール詳細
