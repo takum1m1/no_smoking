@@ -35,6 +35,25 @@ class PostController extends Controller
         return response()->json(['message' => 'Post created successfully', 'post' => $post], 200);
     }
 
+    public function search(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'keyword' => ['required', 'max:20'],
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 400);
+        }
+
+        $keyword = $request->keyword;
+
+        $posts = Post::with(['user', 'likes', 'comments'])
+            ->where('content', 'like', "%{$keyword}%")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return response()->json(['message' => 'Posts retrieved successfully', 'posts' => $posts], 200);
+    }
+
     public function show($id)
     {
         $post = Post::with(['user', 'likes', 'comments'])->findOrFail($id);

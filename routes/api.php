@@ -42,6 +42,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::patch('/profile/reset', [UserProfileController::class, 'reset']);
     // 投稿一覧
     Route::get('/posts', [PostController::class, 'index']);
+    // 投稿検索
+    Route::get('/posts/search', [PostController::class, 'search']);
     // 投稿作成
     Route::post('/posts', [PostController::class, 'store']);
     // 投稿詳細
