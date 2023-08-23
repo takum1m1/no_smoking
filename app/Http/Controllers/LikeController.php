@@ -15,7 +15,7 @@ class LikeController extends Controller
 
         $post = Post::findOrFail($postId);
 
-        if ($post->likes()->where('user_id', $user->id)->exists()) {
+        if ($post->like()->where('user_id', $user->id)->exists()) {
             return response()->json(['message' => 'Already like it.'], 400);
         }
 
@@ -33,7 +33,7 @@ class LikeController extends Controller
 
         $post = Post::findOrFail($postId);
 
-        $like = $post->likes()->where('user_id', $user->id)->firstOrFail();
+        $like = $post->like()->where('user_id', $user->id)->firstOrFail();
 
         if (!$like) {
             return response()->json(['message' => 'Not like it yet.'], 400);
@@ -42,5 +42,14 @@ class LikeController extends Controller
         $like->delete();
 
         return response()->json(['message' => 'Like deleted successfully'], 200);
+    }
+
+    public function index()
+    {
+        $user = Auth::user();
+
+        $likes = $user->like()->with(['post'])->orderBy('created_at', 'desc')->paginate(10);
+
+        return response()->json(['message' => 'Likes retrieved successfully', 'likes' => $likes], 200);
     }
 }

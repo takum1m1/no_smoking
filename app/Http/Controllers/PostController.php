@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['user', 'likes', 'comments'])->orderBy('created_at', 'desc')->paginate(10);;
+        $posts = Post::with(['user', 'like', 'comment'])->orderBy('created_at', 'desc')->paginate(10);;
         return response()->json(['message' => 'Posts retrieved successfully', 'posts' => $posts], 200);
     }
 
@@ -46,7 +46,7 @@ class PostController extends Controller
 
         $keyword = $request->keyword;
 
-        $posts = Post::with(['user', 'likes', 'comments'])
+        $posts = Post::with(['user', 'like', 'comment'])
             ->where('content', 'like', "%{$keyword}%")
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -56,7 +56,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with(['user', 'likes', 'comments'])->findOrFail($id);
+        $post = Post::with(['user', 'like', 'comment'])->findOrFail($id);
         return response()->json(['message' => 'Post retrieved successfully', 'post' => $post], 200);
     }
 

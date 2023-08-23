@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['user', 'likes', 'comments'])->orderBy('created_at', 'desc')->paginate(10);;
+        $posts = Post::with(['user', 'like', 'comment'])->orderBy('created_at', 'desc')->paginate(10);;
         return response()->json(['message' => 'Posts retrieved successfully', 'posts' => $posts], 200);
     }
 
