@@ -34,6 +34,8 @@ Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function() {
     // ログアウト
     Route::post('/logout', [UserController::class, 'logout']);
+    // アカウント削除
+    Route::delete('/delete', [UserController::class, 'destroy']);
     // プロフィール更新
     Route::patch('/profile/update', [UserProfileController::class, 'update']);
     // プロフィール詳細
