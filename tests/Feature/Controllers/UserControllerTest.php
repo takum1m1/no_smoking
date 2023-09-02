@@ -16,7 +16,7 @@ class UserControllerTest extends TestCase
     /**
      * ユーザー登録
      */
-    public function testRegister()
+    public function testRegister01()
     {
         $data = [
             'email' => 'a@example.com',
@@ -57,7 +57,7 @@ class UserControllerTest extends TestCase
     }
 
     /**
-     * ユーザー登録失敗 (passwordが6文字未満)
+     * ユーザー登録失敗 (バリデーションエラー)
      */
     public function testRegister03()
     {
