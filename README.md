@@ -46,7 +46,6 @@
 
 # テスト
 - 統合テスト
-    - userControllerTest
-    - userProfielControllerTest
+    - ControllerTest
 
 
