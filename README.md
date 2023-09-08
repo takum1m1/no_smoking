@@ -7,7 +7,7 @@
 - Laravel 9.91
 - MySQL 8.0.32
 
-###　ER図
+### ER図
 <img width="1229" alt="スクリーンショット 2023-09-09 2 10 48" src="https://github.com/takum1m1/no_smoking/assets/75236113/8452c091-7404-47e9-8ff0-4ee74b511c33">
 
 ## 技術者として意識したこと
