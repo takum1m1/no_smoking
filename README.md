@@ -8,7 +8,7 @@
 - MySQL 8.0.32
 
 ### ER図
-<img width="1229" alt="スクリーンショット 2023-09-09 2 10 48" src="https://github.com/takum1m1/no_smoking/assets/75236113/8452c091-7404-47e9-8ff0-4ee74b511c33">
+<img width="997" alt="スクリーンショット 2023-09-09 2 20 04" src="https://github.com/takum1m1/no_smoking/assets/75236113/6591a087-c257-4f6a-92ab-9ec0f7b64377">
 
 ## 技術者として意識したこと
 
