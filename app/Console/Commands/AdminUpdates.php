@@ -30,6 +30,11 @@ class AdminUpdates extends Command
     {
         $adminId = $this->ask('Please enter the user id');
 
+        if (!$adminId) {
+            $this->error('You did not enter the user id.');
+            return Command::FAILURE;
+        }
+
         $admin = User::findOrfail($adminId);
 
         if ($admin->is_admin === 1) {
