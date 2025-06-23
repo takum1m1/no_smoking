@@ -49,7 +49,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-
+    //親->子の関係かつhasManyなのでcomments()というように複数形で書くのが望ましい
     public function comment()
     {
         return $this->hasMany(Comment::class);
